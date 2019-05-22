@@ -70,8 +70,8 @@ class AlbumViewModel (mApplication: Application, mParam: String) : ViewModel() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val Api = retrofit.create(Api::class.java)
-        val call = Api.albumById(id)
+        val api = retrofit.create(Api::class.java)
+        val call = api.albumById(id)
 
         call.enqueue(object : Callback<Album> {
             override fun onResponse(call: Call<Album>, response: Response<Album>) {

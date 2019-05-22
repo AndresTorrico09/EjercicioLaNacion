@@ -25,7 +25,7 @@ class AlbumAdapter(private var mCtx: Context, internal var albumList: List<Album
         val album = albumList[position]
 
         Picasso.get()
-            .load(album.thumb)
+            .load(album.thumbnailUrl)
             .resize(100, 100)
             .centerCrop()
             .into(holder.imgThumb)
