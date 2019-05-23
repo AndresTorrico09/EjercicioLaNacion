@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.example.ejerciciolanacion.`interface`.Api
 import com.example.ejerciciolanacion.model.Album
+import com.example.ejerciciolanacion.model.Photo
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -16,7 +17,7 @@ import retrofit2.Callback
 class AlbumViewModel (mApplication: Application, mParam: String) : ViewModel() {
     //this is the data that we will fetch asynchronously
     var albumList: MutableLiveData<List<Album>>? = null
-    var album: MutableLiveData<Album>? = null
+    var album: MutableLiveData<List<Photo>>? = null
     private val id: Any = mParam
 
     //we will call this method to get the data
@@ -32,13 +33,13 @@ class AlbumViewModel (mApplication: Application, mParam: String) : ViewModel() {
             return albumList as MutableLiveData<List<Album>>
         }
 
-    val getAlbumById: LiveData<Album>
+    val getAlbumById: LiveData<List<Photo>>
         get() {
             if (album == null) {
                 album = MutableLiveData()
                 loadAlbumById(id as String)
             }
-            return album as MutableLiveData<Album>
+            return album as MutableLiveData<List<Photo>>
         }
 
     private fun loadAlbums() {
@@ -73,11 +74,11 @@ class AlbumViewModel (mApplication: Application, mParam: String) : ViewModel() {
         val api = retrofit.create(Api::class.java)
         val call = api.albumById(id)
 
-        call.enqueue(object : Callback<Album> {
-            override fun onResponse(call: Call<Album>, response: Response<Album>) {
+        call.enqueue(object : Callback<List<Photo>> {
+            override fun onResponse(call: Call<List<Photo>>, response: Response<List<Photo>>) {
                 album!!.value = response.body()
             }
-            override fun onFailure(call: Call<Album>, t: Throwable) {
+            override fun onFailure(call: Call<List<Photo>>, t: Throwable) {
             }
         })
     }

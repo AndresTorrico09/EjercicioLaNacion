@@ -2,6 +2,7 @@ package com.example.ejerciciolanacion.`interface`
 
 import retrofit2.Call
 import com.example.ejerciciolanacion.model.Album
+import com.example.ejerciciolanacion.model.Photo
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -14,5 +15,5 @@ interface Api {
     val albums: Call<List<Album>>
 
     @GET("albums/{id}/photos")
-    fun albumById(@Path("id") id: String): Call<Album>
+    fun albumById(@Path("id") id: String): Call<List<Photo>>
 }
